@@ -28,14 +28,15 @@ The goal of this tutorial series is to provide a "Rosetta Stone" between R and P
 *   **[Lesson 08: Bayesian Inference with PyMC](tutorials/06_bayesian/01_pymc_intro.md)**
 
 ## 7. Machine Learning & Deep Learning
-*   **[Lesson 09: ML Fundamentals](tutorials/07_ml_deep_learning/01_ml_fundamentals.md)**
-*   **[Lesson 10: Deep Learning with PyTorch](tutorials/07_ml_deep_learning/02_pytorch_neural_networks.md)**
+*   **[Lesson 09: Supervised Learning (Regression & Trees)](tutorials/07_ml_deep_learning/01_supervised_learning.md)**
+*   **[Lesson 10: Unsupervised Learning (Clustering & PCA)](tutorials/07_ml_deep_learning/02_unsupervised_learning.md)**
+*   **[Lesson 11: Deep Learning with PyTorch](tutorials/07_ml_deep_learning/03_pytorch_neural_networks.md)**
 
 ## 8. Advanced Topics for Analysts
-*   **[Lesson 11: Advanced Python Features](tutorials/08_advanced_topics/01_advanced_features.md)**
-*   **[Lesson 12: Connecting to Databases](tutorials/08_advanced_topics/02_databases.md)**
-*   **[Lesson 13: Interacting with APIs](tutorials/08_advanced_topics/03_apis.md)**
-*   **[Lesson 14: Building Local User Interfaces](tutorials/08_advanced_topics/04_local_ui.md)**
+*   **[Lesson 12: Advanced Python Features](tutorials/08_advanced_topics/01_advanced_features.md)**
+*   **[Lesson 13: Databases (MSSQL & Fabric)](tutorials/08_advanced_topics/02_databases.md)**
+*   **[Lesson 14: Interacting with APIs](tutorials/08_advanced_topics/03_apis.md)**
+*   **[Lesson 15: Building Local User Interfaces](tutorials/08_advanced_topics/04_local_ui.md)**
 
 ---
 
@@ -48,9 +49,10 @@ The goal of this tutorial series is to provide a "Rosetta Stone" between R and P
 6. **Lesson 06:** Linear Models & Statistics.
 7. **Lesson 07:** Interactive Visuals with Plotly.
 8. **Lesson 08:** Bayesian Inference with PyMC.
-9. **Lesson 09:** ML Fundamentals.
-10. **Lesson 10:** Deep Learning with PyTorch.
-11. **Lesson 11:** Advanced Features.
-12. **Lesson 12:** Databases.
-13. **Lesson 13:** APIs.
-14. **Lesson 14:** Local UI.
+9. **Lesson 09:** Supervised Learning (Regression, Random Forest, XGBoost).
+10. **Lesson 10:** Unsupervised Learning (K-Means, PCA).
+11. **Lesson 11:** Deep Learning with PyTorch.
+12. **Lesson 12:** Advanced Features (Decorators, Performance).
+13. **Lesson 13:** Databases (MSSQL, SQLAlchemy, Fabric).
+14. **Lesson 14:** APIs (Requests).
+15. **Lesson 15:** Local UI (Streamlit).

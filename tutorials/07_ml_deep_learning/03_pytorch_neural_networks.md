@@ -90,4 +90,4 @@ for epoch in range(100):
 5.  **Bonus:** Research `torchvision.datasets.MNIST` and try to load the actual data.
 
 ---
-[⬅️ Previous](01_ml_fundamentals.md) | [🏠 Table of Contents](../../README.md) | [Next ➡️](../08_advanced_topics/01_advanced_features.md)
+[⬅️ Previous](02_unsupervised_learning.md) | [🏠 Table of Contents](../../README.md) | [Next ➡️](../08_advanced_topics/01_advanced_features.md)

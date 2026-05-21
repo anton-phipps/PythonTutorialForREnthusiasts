@@ -1,89 +1,118 @@
-# Lesson 01: Python Language Overview
+# Lesson 01: Python Language Overview for R Users
 
-## 1. Operations & Basic Types
-In R, you have vectors. In Python, you have several core types:
-*   **Integers/Floats:** Numbers.
-*   **Strings:** Text (single or double quotes).
-*   **Lists:** `[1, 2, 3]` (Mutable, like a basic R list).
-*   **Tuples:** `(1, 2, 3)` (Immutable).
-*   **Dictionaries:** `{"key": "value"}` (Like a named list in R).
+## 1. The Mental Shift: Vectors vs. Objects
+In R, almost everything is a vector. If you add `1 + 1`, R treats it as two vectors of length 1 being added. In Python, types are more distinct.
 
-### Basic Operations
+### Basic Types Comparison
+| Feature | R | Python | Why it matters |
+| --- | --- | --- | --- |
+| **Numeric** | `numeric`, `integer` | `int`, `float` | Python distinguishes between whole numbers and decimals more strictly. |
+| **Text** | `character` | `str` | Python strings are "objects" with many built-in methods (e.g., `"hello".upper()`). |
+| **Logic** | `TRUE`, `FALSE` | `True`, `False` | Note the capitalization! `TRUE` will throw an error in Python. |
+| **Missing** | `NA`, `NULL` | `None`, `np.nan` | `None` is for "nothing," `np.nan` (from NumPy) is for "Not a Number" in data. |
+
+## 2. Collections: Lists and Dictionaries
+R users are used to `list()` and `c()`. Python has four main collection types, but you'll use **Lists** and **Dictionaries** the most.
+
+### Lists (The "Unordered" Collection)
+Think of a Python list as an R list that doesn't have names.
 ```python
-# Math
-x = 10 + 5   # 15
-y = 10 / 3   # 3.333 (Float division)
-z = 10 // 3  # 3 (Floor division)
-w = 10 ** 2  # 100 (Exponentiation)
+# R: my_list <- list(1, "apple", TRUE)
+my_list = [1, "apple", True]
 
-# Strings
-greeting = "Hello" + " " + "World"  # Concatenation
-name = "Analyst"
-formatted = f"Welcome, {name}!"    # F-Strings (Modern & Recommended)
+# Accessing (Note: Python starts at 0!)
+# R: my_list[[1]] 
+print(my_list[0]) # Returns 1
 ```
 
-## 2. Assignments & Scoping
-Python uses `=` for assignment. Unlike R's `<-`, there is no "alternative" operator.
-*   **Indentation matters:** Python uses whitespace instead of curly braces `{}` to define blocks of code (loops, functions).
-
+### Dictionaries (The "Named List" Equivalent)
+Dictionaries are Key-Value pairs. This is exactly like a named list in R.
 ```python
-x = 10
-if x > 5:
-    print("Greater than 5")
-else:
-    print("Less than or equal to 5")
+# R: my_dict <- list(name = "Alice", age = 30)
+my_dict = {"name": "Alice", "age": 30}
+
+# Accessing
+# R: my_dict$name
+print(my_dict["name"]) # Returns "Alice"
 ```
 
-## 3. Functions
-Functions are defined using the `def` keyword.
+## 3. Operations and Indentation
+Python handles math and strings through a mix of operators and object methods.
 
+### Math Operations
+| Operation | R | Python |
+| --- | --- | --- |
+| Division | `10 / 3` | `10 / 3` (3.33) |
+| Floor Division | `10 %/% 3` | `10 // 3` (3) |
+| Modulo | `10 %% 3` | `10 % 3` (1) |
+| Power | `10 ^ 2` | `10 ** 2` (100) |
+
+### String Manipulation
+Strings in Python are objects, meaning they have built-in "methods."
 ```python
-def calculate_growth(initial, rate, years=5):
-    """
-    Calculates compound growth.
-    This is a docstring, similar to R's roxygen comments.
-    """
-    final_value = initial * (1 + rate) ** years
-    return final_value
+text = "  Research Analysis  "
 
-# Calling the function
-result = calculate_growth(100, 0.05)
-print(f"Final Value: {result:.2f}")
+# R: trimws(text)
+print(text.strip()) # "Research Analysis"
+
+# R: toupper(text)
+print(text.upper()) # "  RESEARCH ANALYSIS  "
+
+# R: paste("Hello", "World", sep = " ")
+print("Hello" + " " + "World")
+
+# Modern Formatting (F-Strings) - Preferred over paste()
+name = "Alice"
+print(f"Project Lead: {name}") 
 ```
 
-## 4. Classes (Object-Oriented Programming)
-While R has S3, S4, and R6, Python is "Object-Oriented" by default. Everything is an object.
+### Indentation and Control Flow
+Python does not use curly braces `{}` to define code blocks for loops or functions. It uses **Indentation** (usually 4 spaces).
+
+## 4. Functions: Defining Logic
+Functions in Python are very similar to R, but the syntax is cleaner.
+
+**R Version:**
+```r
+calculate_total <- function(price, tax = 0.05) {
+  return(price * (1 + tax))
+}
+```
+
+**Python Version:**
+```python
+def calculate_total(price, tax=0.05):
+    """Calculates the total price including tax."""
+    return price * (1 + tax)
+```
+
+## 5. Classes and Objects
+R has several OOP systems (S3, S4, R6). Python has one unified system. Everything you interact with (a DataFrame, a Plot, a String) is an "Object" belonging to a "Class."
 
 ```python
 class ResearchProject:
-    def __init__(self, name, analyst):
-        self.name = name
-        self.analyst = analyst
-        self.status = "In Progress"
+    def __init__(self, title):
+        self.title = title
+        self.status = "Started"
 
-    def complete(self):
-        self.status = "Finished"
-        print(f"Project '{self.name}' is now complete.")
+    def update_status(self, new_status):
+        self.status = new_status
 
-# Creating an instance
-my_project = ResearchProject("Market Analysis", "Alice")
-print(my_project.status)
-my_project.complete()
+# In R, you'd likely use a list or a specialized R6 object
+project = ResearchProject("Climate Study")
+project.update_status("Data Collected")
+print(f"Project '{project.title}' is currently: {project.status}")
 ```
 
 ---
 
 ## 🏆 Challenge Exercise: The Analyst's Calculator
-1.  Create a function called `analyze_vector` that takes a list of numbers.
-2.  The function should return a dictionary containing the `sum`, `mean`, and `max` of the list.
-3.  **Bonus:** Create a Class called `DataSeries` that stores the list as an attribute and has methods to return the summary dictionary you just created.
+1.  **Task:** Create a function `get_stats` that takes a list of numbers.
+2.  **Requirement:** Return a dictionary with three keys: `sum`, `count`, and `average`.
+3.  **Comparison:** How would you do this in R using `list(sum = sum(x), ...)`?
 
-**Target Output:**
-```python
-series = DataSeries([10, 20, 30])
-print(series.get_summary()) 
-# Should output: {'sum': 60, 'mean': 20.0, 'max': 30}
-```
+**Example Input:** `[10, 20, 30, 40]`
+**Expected Output:** `{'sum': 100, 'count': 4, 'average': 25.0}`
 
 ---
 [🏠 Table of Contents](../../README.md) | [Next ➡️](02_jupyter.md)

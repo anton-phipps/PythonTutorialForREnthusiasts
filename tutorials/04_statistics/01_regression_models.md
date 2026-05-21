@@ -6,6 +6,7 @@ Python splits statistics into two worlds: **Inference** (Statsmodels) and **Pred
 ## 1. Statsmodels: Linear Regression (The `lm` equivalent)
 `statsmodels` provides a formula interface that allows you to specify models just like you do in R.
 
+### Python (Pandas)
 ```python
 import statsmodels.formula.api as smf
 import pandas as pd
@@ -15,9 +16,22 @@ import seaborn as sns
 df = sns.load_dataset("mpg")
 
 # Define the formula: mpg explained by displacement and weight
-# In R: model <- lm(mpg ~ displacement + weight, data = df)
 model = smf.ols(formula="mpg ~ displacement + weight", data=df).fit()
+```
 
+### Python (Polars)
+```python
+import polars as pl
+import seaborn as sns
+
+# Load data and convert to Polars
+df_pl = pl.from_pandas(sns.load_dataset("mpg"))
+
+# Statsmodels requires Pandas, so we convert back for the fit
+model = smf.ols(formula="mpg ~ displacement + weight", data=df_pl.to_pandas()).fit()
+```
+
+```python
 # View the full statistical report
 print(model.summary())
 
@@ -36,6 +50,7 @@ print(logit_model.summary())
 ## 3. Scikit-learn: The ML approach to Regression
 In scikit-learn, you care about the model's ability to predict on new data, not the p-values of the coefficients.
 
+### Python (Pandas)
 ```python
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
@@ -45,9 +60,28 @@ from sklearn.model_selection import train_test_split
 X = df[['displacement', 'weight']].dropna()
 y = df.loc[X.index, 'mpg']
 
-# 2. Split into training and testing sets (Validation!)
+# 2. Split into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+```
 
+### Python (Polars)
+```python
+import polars as pl
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+
+# 1. Prepare data
+# We select columns and drop nulls
+df_clean = df_pl.select(['displacement', 'weight', 'mpg']).drop_nulls()
+X = df_clean.select(['displacement', 'weight'])
+y = df_clean.select('mpg')
+
+# 2. Split into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X.to_numpy(), y.to_numpy(), test_size=0.2, random_state=42)
+```
+
+### Fitting and Evaluation (Common)
+```python
 # 3. Fit the model
 reg = LinearRegression()
 reg.fit(X_train, y_train)
