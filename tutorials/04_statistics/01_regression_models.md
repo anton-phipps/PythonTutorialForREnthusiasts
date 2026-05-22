@@ -1,4 +1,4 @@
-# Lesson 04: Statistical Modeling
+# Lesson 06: Statistical Modeling
 
 ## Overview
 Python splits statistics into two worlds: **Inference** (Statsmodels) and **Prediction** (Scikit-learn).

@@ -1,4 +1,4 @@
-# Lesson 05: Interactive Visuals with Plotly
+# Lesson 07: Interactive Visuals with Plotly
 
 ## Overview
 Plotly is the industry standard for interactive charts in both R and Python. The Python implementation, **Plotly Express (px)**, is particularly elegant for rapid exploration.

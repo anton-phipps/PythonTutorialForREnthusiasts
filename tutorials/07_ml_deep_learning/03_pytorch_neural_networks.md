@@ -1,4 +1,4 @@
-# Deep Learning with PyTorch
+# Lesson 11: Deep Learning with PyTorch
 
 ## Overview
 Deep Learning is a subset of ML based on artificial neural networks. **PyTorch** is the most popular framework for research due to its flexibility and "Pythonic" nature.

@@ -1,17 +1,34 @@
-# Jupyter Notebooks: The RStudio Alternative
+# Lesson 02: Jupyter Notebooks & VS Code
 
 ## Overview
-For R users, RStudio is the de facto IDE. In the Python world, **Jupyter Notebooks** (or JupyterLab) are the standard for interactive data analysis, similar to RMarkdown or Quarto documents.
+For R users, RStudio is the de facto IDE. In the Python world, you have two primary choices for interactive analysis: **JupyterLab** (the web-based evolution of notebooks) and **VS Code** (a powerful general-purpose IDE).
 
-## 1. The Anatomy of a Notebook
+## 1. JupyterLab: The Web Standard
+JupyterLab is the modern interface for Jupyter Notebooks. It allows you to have multiple notebooks, text files, and terminals open in one tab.
+
 *   **Cells:** Notebooks are made of cells.
     *   **Code Cells:** Where you write and execute Python code. Press `Shift + Enter` to run.
-    *   **Markdown Cells:** Where you write documentation, just like in RMarkdown. Use `#`, `##`, `**bold**`, etc.
-*   **Kernels:** The "brain" of the notebook. It's the Python process running your code. 
-    *   If you get stuck in an infinite loop, click **Kernel -> Interrupt**.
-    *   To clear all variables and start fresh, click **Kernel -> Restart**.
+    *   **Markdown Cells:** Where you write documentation.
+*   **Kernels:** The Python process running your code. Use **Kernel -> Restart** if things get messy.
 
-## 2. Magic Commands (Magics)
+## 2. VS Code: The "RStudio" Experience
+Many R users find that **VS Code** with the **Python** and **Jupyter** extensions feels the most like RStudio.
+
+### Why use VS Code?
+1.  **Variable Explorer:** Just like RStudio's "Environment" pane, VS Code has a built-in variable explorer for notebooks.
+2.  **Integrated Terminal:** Easily run shell commands or script files.
+3.  **Extensions:** Add support for Git, SQL, Docker, and even R!
+4.  **Copilot:** Excellent AI-assisted coding integration.
+
+### Setup for R Users:
+1.  Install VS Code.
+2.  Go to the Extensions view (`Ctrl+Shift+X`) and install the **Python** and **Jupyter** extensions from Microsoft.
+3.  Open a `.ipynb` file or create a new one.
+
+---
+
+## 3. Magic Commands (Magics)
+
 Magics are special commands that are not valid Python but are understood by the Jupyter environment.
 *   `%matplotlib inline`: Ensures plots show up inside the notebook (usually default now).
 *   `%timeit`: Measures the execution time of a single line.

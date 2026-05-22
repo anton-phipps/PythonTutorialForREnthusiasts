@@ -8,6 +8,7 @@ The goal of this tutorial series is to provide a "Rosetta Stone" between R and P
 ---
 
 ## 1. Foundations & Environment
+*   **[Lesson 00: Environment & Package Management](tutorials/01_foundations/00_environment.md)**
 *   **[Lesson 01: Python Language Overview](tutorials/01_foundations/01_introduction.md)**
 *   **[Lesson 02: Jupyter Notebooks](tutorials/01_foundations/02_jupyter.md)**
 
@@ -41,6 +42,7 @@ The goal of this tutorial series is to provide a "Rosetta Stone" between R and P
 ---
 
 ## Proposed Lesson Progression
+0. **Lesson 00:** Environment & Package Management (Conda, venv, uv).
 1. **Lesson 01:** Hello Python (Setup & Basic Types).
 2. **Lesson 02:** Jupyter Notebooks.
 3. **Lesson 03:** Modern Data Frames with Polars/Pandas.

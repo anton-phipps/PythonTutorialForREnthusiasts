@@ -1,11 +1,29 @@
-# Lesson 09: Supervised Learning (Regression & Trees)
+# Lesson 09: Supervised Learning & Pipelines
 
-## Overview
-Supervised Learning is the most common ML task: predicting a target (y) from features (X) based on labeled historical data. In Python, **Scikit-learn** is the industry standard, providing a unified "Fit/Predict" API that replaces various R packages like `randomForest`, `xgboost`, and `glm`.
+## 1. Pipelines: The `tidymodels` Equivalent
+In R, `tidymodels` uses `recipes` and `workflows`. In Python, we use **Pipelines** to bundle preprocessing and modeling together. This prevents "data leakage" and makes your code cleaner.
+
+```python
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestRegressor
+
+# Define the pipeline: Scaling -> Modeling
+pipeline = Pipeline([
+    ('scaler', StandardScaler()),
+    ('model', RandomForestRegressor(n_estimators=100))
+])
+
+# Fit the entire pipeline
+pipeline.fit(X_train, y_train)
+
+# Predict using the pipeline (scaling happens automatically!)
+y_pred = pipeline.predict(X_test)
+```
 
 ---
 
-## 1. Simple & Multiple Linear Regression
+## 2. Simple & Multiple Linear Regression
 While we covered `statsmodels` for inference, `scikit-learn` is used when your primary goal is **prediction accuracy**.
 
 ### Simple Regression (One Predictor)

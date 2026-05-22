@@ -1,6 +1,26 @@
-# Advanced Python Features for Analysts: Beyond `purrr`
+# Lesson 12: Advanced Python Features for Analysts
 
-## 1. Functional Programming: The `purrr` Transition
+## 1. Type Hints & Docstrings (The "Good Code" Standard)
+In R, documentation often lives in separate `.Rd` files. In Python, we document code directly using **Docstrings** and **Type Hints**. This makes your analysis reproducible and easier for others (or your future self) to understand.
+
+```python
+def calculate_growth(initial: float, final: float) -> float:
+    """
+    Calculates the percentage growth between two values.
+    
+    Args:
+        initial: The starting value.
+        final: The ending value.
+        
+    Returns:
+        The percentage growth as a decimal.
+    """
+    return (final - initial) / initial
+```
+
+---
+
+## 2. Functional Programming: The `purrr` Transition
 In R, you use `map`, `map_df`, and `walk` to avoid `for` loops. In Python, while `map()` exists, the preferred way is **List Comprehensions**.
 
 ### List Comprehensions

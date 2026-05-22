@@ -11,6 +11,12 @@ In R, almost everything is a vector. If you add `1 + 1`, R treats it as two vect
 | **Logic** | `TRUE`, `FALSE` | `True`, `False` | Note the capitalization! `TRUE` will throw an error in Python. |
 | **Missing** | `NA`, `NULL` | `None`, `np.nan` | `None` is for "nothing," `np.nan` (from NumPy) is for "Not a Number" in data. |
 
+### Pro-Tip: Missing Values
+In R, `NA` is a logical value that can exist in any vector. In Python:
+*   `None` is the generic "null" (like `NULL` in R).
+*   `np.nan` is used specifically for missing numbers in DataFrames (like `NA_real_`).
+*   **Gotcha:** `np.nan == np.nan` is **False**! Use `pd.isna()` or `np.isnan()`.
+
 ## 2. Collections: Lists and Dictionaries
 R users are used to `list()` and `c()`. Python has four main collection types, but you'll use **Lists** and **Dictionaries** the most.
 
@@ -36,6 +42,18 @@ my_dict = {"name": "Alice", "age": 30}
 print(my_dict["name"]) # Returns "Alice"
 ```
 
+### Iteration: List Comprehensions (The `lapply` Equivalent)
+R users love `lapply` and `purrr::map`. In Python, we use **List Comprehensions**.
+
+```python
+# R: lapply(1:5, function(x) x^2)
+squares = [x**2 for x in range(1, 6)]
+print(squares) # [1, 4, 9, 16, 25]
+
+# With a condition (like filter + map)
+even_squares = [x**2 for x in range(1, 11) if x % 2 == 0]
+```
+
 ## 3. Operations and Indentation
 Python handles math and strings through a mix of operators and object methods.
 
@@ -45,7 +63,7 @@ Python handles math and strings through a mix of operators and object methods.
 | Division | `10 / 3` | `10 / 3` (3.33) |
 | Floor Division | `10 %/% 3` | `10 // 3` (3) |
 | Modulo | `10 %% 3` | `10 % 3` (1) |
-| Power | `10 ^ 2` | `10 ** 2` (100) |
+| Power | `10 ^ 2` or `10 ** 2` | `10 ** 2` (100) |
 
 ### String Manipulation
 Strings in Python are objects, meaning they have built-in "methods."
@@ -58,8 +76,8 @@ print(text.strip()) # "Research Analysis"
 # R: toupper(text)
 print(text.upper()) # "  RESEARCH ANALYSIS  "
 
-# R: paste("Hello", "World", sep = " ")
-print("Hello" + " " + "World")
+# R: paste("A", "B", "C", sep = "-")
+print("-".join(["A", "B", "C"])) # "A-B-C"
 
 # Modern Formatting (F-Strings) - Preferred over paste()
 name = "Alice"
@@ -115,4 +133,4 @@ print(f"Project '{project.title}' is currently: {project.status}")
 **Expected Output:** `{'sum': 100, 'count': 4, 'average': 25.0}`
 
 ---
-[🏠 Table of Contents](../../README.md) | [Next ➡️](02_jupyter.md)
+[⬅️ Previous](00_environment.md) | [🏠 Table of Contents](../../README.md) | [Next ➡️](02_jupyter.md)

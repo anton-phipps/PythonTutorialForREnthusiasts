@@ -1,4 +1,4 @@
-# Interacting with APIs
+# Lesson 14: Interacting with APIs
 
 ## Overview
 In R, you use `httr` or `httr2`. In Python, the gold standard is the **Requests** library.

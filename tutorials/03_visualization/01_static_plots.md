@@ -1,9 +1,24 @@
-# Lesson 03: Data Visualization
+# Lesson 05: Data Visualization (Static & Interactive)
 
 ## Overview
 In R, `ggplot2` is built on the "Grammar of Graphics." Python offers several libraries that either mirror this approach or provide high-level abstractions for common statistical charts.
 
-## 1. Plotnine: The literal `ggplot2` port
+## 1. Plotly Express: The "Fast & Interactive" Choice
+For most analysts, **Plotly Express** is the best balance of ease and power. It creates interactive plots with a single line of code.
+
+```python
+import plotly.express as px
+df = px.data.iris()
+
+# Interactive Scatter Plot
+fig = px.scatter(df, x="sepal_width", y="sepal_length", 
+                 color="species", size='petal_length',
+                 hover_data=['petal_width'],
+                 title="Iris Dataset: Sepal Width vs Length")
+fig.show()
+```
+
+## 2. Plotnine: The literal `ggplot2` port
 If you want to keep using the same syntax you know and love, **Plotnine** is your best friend.
 
 ```python

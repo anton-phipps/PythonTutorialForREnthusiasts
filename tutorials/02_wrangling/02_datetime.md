@@ -1,4 +1,4 @@
-# Date and Time Manipulation: The Lubridate Equivalent
+# Lesson 04: Date and Time Manipulation: The Lubridate Equivalent
 
 ## Overview
 In R, `lubridate` makes working with dates intuitive. In Python, both **Pandas** and **Polars** provide powerful tools for time-series data.

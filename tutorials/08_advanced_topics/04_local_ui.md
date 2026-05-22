@@ -1,4 +1,4 @@
-# Building Local User Interfaces
+# Lesson 15: Building Local User Interfaces
 
 ## Overview
 In R, you have **Shiny**. In Python, for analysts and researchers, the absolute best tool for building a quick UI is **Streamlit**. It allows you to turn a script into a web app in minutes without knowing HTML/CSS.
