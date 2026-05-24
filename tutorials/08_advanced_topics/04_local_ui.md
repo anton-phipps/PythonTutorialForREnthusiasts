@@ -59,4 +59,4 @@ If you need a standalone `.exe` or a more traditional windowed application, look
 3.  **Bonus:** Add a button that, when clicked, calculates and displays the summary statistics of the entire file.
 
 ---
-[⬅️ Previous](03_apis.md) | [🏠 Table of Contents](../../README.md)
+[⬅️ Previous](03_apis.md) | [🏠 Table of Contents](../../README.md) | [Next ➡️](../09_version_control/01_git_basics.md)

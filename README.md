@@ -39,6 +39,12 @@ The goal of this tutorial series is to provide a "Rosetta Stone" between R and P
 *   **[Lesson 14: Interacting with APIs](tutorials/08_advanced_topics/03_apis.md)**
 *   **[Lesson 15: Building Local User Interfaces](tutorials/08_advanced_topics/04_local_ui.md)**
 
+## 9. Version Control for Analysts
+*   **[Lesson 16: Git Fundamentals](tutorials/09_version_control/01_git_basics.md)**
+*   **[Lesson 17: Branching & Merging](tutorials/09_version_control/02_branching_merging.md)**
+*   **[Lesson 18: Collaboration & Best Practices](tutorials/09_version_control/03_collaboration.md)**
+*   **[Lesson 19: Advanced Git & Power User Tools](tutorials/09_version_control/04_advanced_git.md)**
+
 ---
 
 ## Proposed Lesson Progression
@@ -58,3 +64,7 @@ The goal of this tutorial series is to provide a "Rosetta Stone" between R and P
 13. **Lesson 13:** Databases (MSSQL, SQLAlchemy, Fabric).
 14. **Lesson 14:** APIs (Requests).
 15. **Lesson 15:** Local UI (Streamlit).
+16. **Lesson 16:** Git Fundamentals.
+17. **Lesson 17:** Branching & Merging.
+18. **Lesson 18:** Collaboration & PRs.
+19. **Lesson 19:** Advanced Git Toolkit.
