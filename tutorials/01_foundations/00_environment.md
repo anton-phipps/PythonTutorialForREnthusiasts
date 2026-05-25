@@ -51,17 +51,19 @@ The "standard" way that comes with Python.
 ## 4. Quarto: The RMarkdown Successor
 If you love RMarkdown, you don't have to give it up! **Quarto** works perfectly with Python. You can use the same `.qmd` format, but use the `python` engine instead of `r`.
 
-```markdown
+(Note: In a `.qmd` file, code chunks use `{python}` instead of `{r}`)
+
+```yaml
 ---
 title: "Python Analysis"
 format: html
 ---
+```
 
-```{python}
+```python
 import pandas as pd
 df = pd.DataFrame({"a": [1, 2], "b": [3, 4]})
 df.head()
-```
 ```
 
 ---
