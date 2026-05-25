@@ -98,4 +98,4 @@ To be truly competent in Git, you should be able to explain:
 5.  What a **SHA-1 Hash** represents in the context of a commit.
 
 ---
-[⬅️ Previous](03_collaboration.md) | [🏠 Table of Contents](../../README.md)
+[⬅️ Previous](03_collaboration.md) | [🏠 Table of Contents](../../README.md) | [Next ➡️](../10_sharing/01_quarto.md)

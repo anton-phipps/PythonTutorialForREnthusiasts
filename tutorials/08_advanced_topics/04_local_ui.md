@@ -1,47 +1,42 @@
 # Lesson 15: Building Local User Interfaces
 
 ## Overview
-In R, you have **Shiny**. In Python, for analysts and researchers, the absolute best tool for building a quick UI is **Streamlit**. It allows you to turn a script into a web app in minutes without knowing HTML/CSS.
+In R, you have **Shiny**. In Python, for analysts and researchers, you have two main paths: **Streamlit** for speed, and **Shiny for Python** for familiar reactivity.
 
-## 1. The Streamlit Mental Model
-Streamlit apps are just Python scripts that run from top to bottom. Every time a user interacts with a widget (like a slider), the script reruns.
+## 1. Streamlit: The Speed Demon
+Streamlit allows you to turn a script into a web app in minutes. Its mental model is simple: the script reruns from top to bottom every time something changes.
 
 ```python
 import streamlit as st
 import pandas as pd
 import numpy as np
 
-# Title of the app
 st.title("My Research Dashboard")
-
-# 1. User Input
-name = st.text_input("Enter your name", "Analyst")
-st.write(f"Hello, {name}!")
-
-# 2. Interactive Widget
 n_points = st.slider("Select number of points", 10, 1000, 100)
 
-# 3. Dynamic Calculation
-data = pd.DataFrame({
-    'x': np.random.randn(n_points),
-    'y': np.random.randn(n_points)
-})
-
-# 4. Displaying Data/Plots
-st.subheader("Random Data Scatter")
+data = pd.DataFrame({'x': np.random.randn(n_points), 'y': np.random.randn(n_points)})
 st.scatter_chart(data)
-
-if st.checkbox("Show Raw Data"):
-    st.write(data)
 ```
 
-## 2. Running your App
-Unlike a normal Python script, you run Streamlit from the command line:
-```bash
-streamlit run my_app.py
-```
+## 2. Shiny for Python: The Familiar Choice
+If you have complex apps with many dependencies (where you only want *part* of the UI to update), **Shiny for Python** is the answer. It uses the same "Reactive" logic you used in R.
 
-## 3. Traditional Desktop UIs
+**Comparison for R Users:**
+*   **Streamlit:** Feels like a linear script. Very easy, but can be slow if your data is massive (because it reruns everything).
+*   **Shiny for Python:** Feels exactly like R Shiny (UI + Server). Harder to learn, but much more powerful for complex apps.
+
+| Feature | Streamlit | Shiny for Python |
+| --- | --- | --- |
+| **Learning Curve** | Extremely Low | Moderate (if you know R Shiny) |
+| **Layout Control** | Simple/Opinionated | Full/Flexible |
+| **Reactivity** | Full-script rerun | Reactive Graph (fine-grained) |
+| **Best For** | Quick Prototypes | Production Dashboards |
+
+## 3. Running your App
+*   **Streamlit:** `streamlit run app.py`
+*   **Shiny:** `shiny run --reload app.py`
+
+## 4. Traditional Desktop UIs
 If you need a standalone `.exe` or a more traditional windowed application, look into:
 *   **Tkinter:** Built-in to Python. Good for very simple windows.
 *   **CustomTkinter:** A modern skin for Tkinter.

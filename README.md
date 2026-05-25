@@ -45,6 +45,10 @@ The goal of this tutorial series is to provide a "Rosetta Stone" between R and P
 *   **[Lesson 18: Collaboration & Best Practices](tutorials/09_version_control/03_collaboration.md)**
 *   **[Lesson 19: Advanced Git & Power User Tools](tutorials/09_version_control/04_advanced_git.md)**
 
+## 10. Sharing & Reporting
+*   **[Lesson 20: Reporting with Quarto](tutorials/10_sharing/01_quarto.md)**
+*   **[Lesson 21: PowerBI & Microsoft Fabric Integration](tutorials/10_sharing/02_powerbi_fabric.md)**
+
 ---
 
 ## Proposed Lesson Progression
@@ -63,8 +67,10 @@ The goal of this tutorial series is to provide a "Rosetta Stone" between R and P
 12. **Lesson 12:** Advanced Features (Decorators, Performance).
 13. **Lesson 13:** Databases (MSSQL, SQLAlchemy, Fabric).
 14. **Lesson 14:** APIs (Requests).
-15. **Lesson 15:** Local UI (Streamlit).
+15. **Lesson 15:** Local UI (Streamlit & Shiny for Python).
 16. **Lesson 16:** Git Fundamentals.
 17. **Lesson 17:** Branching & Merging.
 18. **Lesson 18:** Collaboration & PRs.
 19. **Lesson 19:** Advanced Git Toolkit.
+20. **Lesson 20:** Reporting with Quarto (The R Markdown Successor).
+21. **Lesson 21:** PowerBI & Microsoft Fabric (The Enterprise "Last Mile").
