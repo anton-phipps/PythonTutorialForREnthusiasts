@@ -75,7 +75,7 @@ Sometimes, you change the same line of code in two different branches. Git won't
 When **Alex** tries to merge them, Git stops and says: "I don't know which one is right!"
 
 Git will mark the file like this:
-```python
+```text
 <<<<<<< HEAD
 year = int(row[0])  # Anton's version
 =======

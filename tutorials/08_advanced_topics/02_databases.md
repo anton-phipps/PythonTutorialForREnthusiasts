@@ -3,6 +3,25 @@
 ## Overview
 For analysts in the Microsoft ecosystem, connecting to **SQL Server (MSSQL)** and **Microsoft Fabric** is a daily task. In R, you likely used `odbc` or `DBI`. In Python, the standard stack is **pyodbc** (the driver) + **SQLAlchemy** (the engine) + **Pandas** (the interface).
 
+### Local Practice (SQLite)
+If you don't have access to an MSSQL server right now, you can practice with **SQLite**, which is built into Python.
+
+```python
+import pandas as pd
+from sqlalchemy import create_engine
+
+# Create a local SQLite database in memory
+engine = create_engine('sqlite://')
+
+# Write some data to it
+df_iris = pd.DataFrame({'a': [1, 2], 'b': [3, 4]})
+df_iris.to_sql('iris', engine, index=False)
+
+# Read it back
+df_read = pd.read_sql("SELECT * FROM iris", engine)
+print(df_read)
+```
+
 ---
 
 ## 1. Connecting to Microsoft SQL Server (MSSQL)
@@ -33,23 +52,26 @@ params = urllib.parse.quote_plus(
 )
 
 # 2. Initialize the engine
-engine = create_engine(f"mssql+pyodbc:///?odbc_connect={params}")
-
-# 3. Read data
-df = pd.read_sql("SELECT TOP 10 * FROM my_table", engine)
+# Note: This requires the 'pyodbc' library and a system ODBC driver
+try:
+    engine = create_engine(f"mssql+pyodbc:///?odbc_connect={params}")
+    # df = pd.read_sql("SELECT TOP 10 * FROM my_table", engine)
+except ImportError:
+    print("pyodbc not installed")
+except Exception as e:
+    print(f"Could not connect: {e}")
 ```
 
 ### Python (Polars)
 ```python
 import polars as pl
 
-# Polars can use the same SQLAlchemy engine
-# Or a connection string (URI)
-uri = f"mssql+pyodbc:///?odbc_connect={params}"
-df = pl.read_database(query="SELECT TOP 10 * FROM my_table", connection=engine)
-
-# Alternatively, using a connection URI directly (requires connectorx)
-# df = pl.read_database_uri("SELECT * FROM table", uri)
+# Polars can use the same SQLAlchemy engine or a connection string (URI)
+try:
+    uri = f"mssql+pyodbc:///?odbc_connect={params}"
+    # df = pl.read_database(query="SELECT TOP 10 * FROM my_table", connection=uri)
+except NameError:
+    print("params not defined")
 ```
 
 ---

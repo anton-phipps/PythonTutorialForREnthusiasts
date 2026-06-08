@@ -3,6 +3,42 @@
 ## Overview
 This lesson is the core of your transition. We will map the "Verbs" of the Tidyverse (`dplyr` and `tidyr`) to their Python equivalents in **Pandas** and **Polars**.
 
+### Setup
+Before we start, let's import our libraries and create a sample DataFrame:
+
+```python
+import pandas as pd
+import polars as pl
+import numpy as np
+
+# Create a sample DataFrame for demonstration
+data = {
+    'size': ['S', 'M', 'L', 'S', 'M'],
+    'cyl': [4, 6, 8, 4, 4],
+    'hp': [110, 175, 245, 62, 95],
+    'wt': [2.62, 3.21, 3.44, 2.14, 3.15],
+    'mpg': [21, 21, 14, 22, 19],
+    'x': [1, 2, 3, 4, 5],
+    'id': [1, 2, 3, 4, 5]
+}
+df = pd.DataFrame(data)
+df_pl = pl.DataFrame(data)
+
+# For joining examples
+df1 = df.copy()
+df2 = pd.DataFrame({'id': [1, 2, 3], 'val': ['A', 'B', 'C']})
+df1_pl = pl.DataFrame(df1)
+df2_pl = pl.DataFrame(df2)
+
+# For reshaping examples
+df_wide = pd.DataFrame({
+    'id': [1, 2],
+    'Jan': [10, 20],
+    'Feb': [15, 25]
+})
+df_wide_pl = pl.DataFrame(df_wide)
+```
+
 ---
 
 ## 1. Categorical Data (Factors)
@@ -20,7 +56,7 @@ print(df['size'].cat.categories)
 ### Polars:
 ```python
 # Polars uses 'Enum' or 'Categorical'
-df = df.with_columns(pl.col("size").cast(pl.Categorical))
+df_pl = df_pl.with_columns(pl.col("size").cast(pl.Categorical))
 ```
 
 ---
@@ -46,7 +82,7 @@ df %>%
 
 ### Python (Polars)
 ```python
-(df
+(df_pl
  .filter(pl.col('cyl') == 4)
  .with_columns((pl.col('hp') / pl.col('wt')).alias('hp_wt'))
  .select(['mpg', 'hp_wt']))
@@ -68,7 +104,7 @@ df[df['mpg'] > 20]
 
 **Polars:**
 ```python
-df.filter(pl.col('mpg') > 20)
+df_pl.filter(pl.col('mpg') > 20)
 ```
 
 ### Select (`select`)
@@ -81,7 +117,7 @@ df[['mpg', 'hp']]
 
 **Polars:**
 ```python
-df.select(['mpg', 'hp'])
+df_pl.select(['mpg', 'hp'])
 ```
 
 ### Mutate (`mutate`)
@@ -94,7 +130,7 @@ df.assign(new_col = df['x'] * 2)
 
 **Polars:**
 ```python
-df.with_columns((pl.col('x') * 2).alias('new_col'))
+df_pl.with_columns((pl.col('x') * 2).alias('new_col'))
 ```
 
 ### Summarize & Group By (`group_by` + `summarize`)
@@ -109,7 +145,7 @@ df.with_columns((pl.col('x') * 2).alias('new_col'))
 
 **Polars:**
 ```python
-(df
+(df_pl
  .group_by('cyl')
  .agg(mean_mpg=pl.col('mpg').mean()))
 ```
@@ -119,21 +155,21 @@ df.with_columns((pl.col('x') * 2).alias('new_col'))
 
 **Pandas:** `df.sort_values('mpg', ascending=False)`
 
-**Polars:** `df.sort('mpg', descending=True)`
+**Polars:** `df_pl.sort('mpg', descending=True)`
 
 ### Rename (`rename`)
 **R:** `df %>% rename(new_name = old_name)`
 
 **Pandas:** `df.rename(columns={'old_name': 'new_name'})`
 
-**Polars:** `df.rename({'old_name': 'new_name'})`
+**Polars:** `df_pl.rename({'old_name': 'new_name'})`
 
 ### Distinct (`distinct`)
 **R:** `df %>% distinct(cyl)`
 
 **Pandas:** `df[['cyl']].drop_duplicates()`
 
-**Polars:** `df.select('cyl').unique()`
+**Polars:** `df_pl.select('cyl').unique()`
 
 ---
 
@@ -150,7 +186,7 @@ df1.merge(df2, on='id', how='left')
 
 **Polars:**
 ```python
-df1.join(df2, on='id', how='left')
+df1_pl.join(df2_pl, on='id', how='left')
 ```
 
 ---
@@ -178,7 +214,7 @@ df['cat'] = np.select(conditions, choices, default='high')
 
 ### Polars (`pl.when`):
 ```python
-df.with_columns(
+df_pl.with_columns(
     cat = pl.when(pl.col('x') < 10).then(pl.lit('low'))
             .when(pl.col('x') < 20).then(pl.lit('med'))
             .otherwise(pl.lit('high'))
@@ -194,12 +230,12 @@ df.with_columns(
 
 **Pandas:**
 ```python
-df.melt(id_vars=['id'], value_vars=['Jan', 'Feb'], var_name='month', value_name='temp')
+df_wide.melt(id_vars=['id'], value_vars=['Jan', 'Feb'], var_name='month', value_name='temp')
 ```
 
-**Polars:**
+### Polars:
 ```python
-df.unpivot(index='id', on=['Jan', 'Feb'], variable_name='month', value_name='temp')
+df_wide_pl.unpivot(index='id', on=['Jan', 'Feb'], variable_name='month', value_name='temp')
 ```
 
 ### Pivot Wider (`pivot_wider`)
@@ -207,12 +243,16 @@ df.unpivot(index='id', on=['Jan', 'Feb'], variable_name='month', value_name='tem
 
 **Pandas:**
 ```python
-df.pivot(index='id', columns='month', values='temp')
+# Assuming df_melted exists
+df_melted = df_wide.melt(id_vars=['id'], value_vars=['Jan', 'Feb'], var_name='month', value_name='temp')
+df_melted.pivot(index='id', columns='month', values='temp')
 ```
 
 **Polars:**
 ```python
-df.pivot(on='month', values='temp', index='id')
+# Assuming df_unpivoted exists
+df_unpivoted = df_wide_pl.unpivot(index='id', on=['Jan', 'Feb'], variable_name='month', value_name='temp')
+df_unpivoted.pivot(on='month', values='temp', index='id')
 ```
 
 ---

@@ -6,6 +6,27 @@ For R users coming from `brms` or `rstan`, **PyMC** is the primary tool for Baye
 ## 1. The Mental Model: Formula vs. Graph
 In `brms`, you define the model with a string like `y ~ x`. In PyMC, you define the **Generative Process**.
 
+### Setup
+```python
+import pymc as pm
+import numpy as np
+import pandas as pd
+import matplotlib
+matplotlib.use('Agg')
+
+# Dummy data
+hp_data = np.array([110, 175, 245, 62, 95])
+wt_data = np.array([2.62, 3.21, 3.44, 2.14, 3.15])
+y_data = np.array([21, 21, 14, 22, 19])
+
+# For hierarchical examples
+group_names = ['A', 'B', 'C']
+group_idx = [0, 1, 2, 0, 1]
+x = np.random.randn(5)
+y = np.random.randn(5)
+beta = 1.0
+```
+
 ### Simple Linear Regression
 **R (brms):**
 ```r
@@ -23,17 +44,17 @@ with pm.Model() as model:
     beta_hp = pm.Normal('beta_hp', mu=0, sigma=10)
     beta_wt = pm.Normal('beta_wt', mu=0, sigma=10)
     sigma = pm.HalfNormal('sigma', sigma=1)
-    
+
     # 2. The Linear Predictor (The "Formula")
     mu = alpha + beta_hp * hp_data + beta_wt * wt_data
-    
+
     # 3. The Likelihood (The "Family")
     # observed=y_data connects the model to your actual data
     y_obs = pm.Normal('y_obs', mu=mu, sigma=sigma, observed=y_data)
-    
+
     # 4. Sampling (MCMC)
     # Similar to brm(... chains=4, iter=2000)
-    trace = pm.sample(2000, tune=1000, chains=4)
+    trace = pm.sample(500, tune=500, chains=2)
 ```
 
 ---
@@ -59,13 +80,9 @@ import arviz as az
 # R: plot(model)
 az.plot_trace(trace)
 
-# 2. Posterior Distributions
-# R: mcmc_areas(model)
-az.plot_posterior(trace, var_names=['beta_hp', 'beta_wt'])
-
-# 3. Forest Plot
-# R: mcmc_intervals(model)
-az.plot_forest(trace, hdi_prob=0.95)
+# 2. Posterior Distributions & Forests
+# R: mcmc_areas(model) or mcmc_intervals(model)
+az.plot_forest(trace, var_names=['beta_hp', 'beta_wt'], hdi_prob=0.95)
 ```
 
 ---

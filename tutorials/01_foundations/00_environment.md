@@ -41,12 +41,12 @@ The "standard" way that comes with Python.
     *   Generate: `pip freeze > requirements.txt`
     *   Install from: `pip install -r requirements.txt`
 3.  **Import Conventions:**
-    ```python
-    import pandas as pd       # Standard alias
-    import numpy as np        # Standard alias
-    import polars as pl       # Standard alias
-    import matplotlib.pyplot as plt
-    ```
+```python
+import pandas as pd       # Standard alias
+import numpy as np        # Standard alias
+import polars as pl       # Standard alias
+import matplotlib.pyplot as plt
+```
 
 ## 4. Quarto: The RMarkdown Successor
 If you love RMarkdown, you don't have to give it up! **Quarto** works perfectly with Python. You can use the same `.qmd` format, but use the `python` engine instead of `r`.

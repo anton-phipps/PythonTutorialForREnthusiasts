@@ -50,6 +50,19 @@ While Fabric Notebooks look like Jupyter, there are key differences in how you a
 ## 4. Natively Storing Data in a Lakehouse
 In Fabric, you don't just "save a file." You write to the **Lakehouse**. The best practice is to store data as **Delta Tables**, which are Parquet files with a transaction log (making them "SQL-like").
 
+### Setup
+```python
+import pandas as pd
+import os
+
+# Create a sample DataFrame
+df = pd.DataFrame({'id': [1, 2, 3], 'value': [10.5, 20.3, 15.8]})
+
+# Create dummy directories for the examples to work
+os.makedirs("Files", exist_ok=True)
+os.makedirs("Tables", exist_ok=True)
+```
+
 ### A. Writing with Pandas (Small/Medium Data)
 If your data fits in memory, you can write directly to the `Tables` or `Files` section of your Lakehouse.
 
@@ -59,19 +72,23 @@ df.to_csv("Files/transformed_data.csv", index=False)
 
 # Save as a Delta Table (Native Lakehouse Format)
 # Note: Requires 'deltalake' library locally, but built-in to Fabric
-import deltalake
-df.to_delta("Tables/my_research_table")
+from deltalake import write_deltalake
+write_deltalake("Tables/my_research_table", df, mode='overwrite')
 ```
 
 ### B. Writing with PySpark (Big Data)
 In Fabric, Spark is the "native" language. It handles massive datasets by spreading the work across a cluster.
 
 ```python
-# Convert Pandas to Spark
-spark_df = spark.createDataFrame(df)
+# Note: This block assumes you are in a Spark environment (e.g., Fabric Notebook)
+try:
+    # Convert Pandas to Spark
+    spark_df = spark.createDataFrame(df)
 
-# Write as a Managed Table (Best for PowerBI)
-spark_df.write.format("delta").mode("overwrite").saveAsTable("gold_research_data")
+    # Write as a Managed Table (Best for PowerBI)
+    spark_df.write.format("delta").mode("overwrite").saveAsTable("gold_research_data")
+except NameError:
+    print("Spark environment not found, skipping Spark example.")
 ```
 
 ## 5. The "Semantic Link" (SemPy)
@@ -80,9 +97,12 @@ Fabric has a unique library called `sempy`. It allows your Python code to "talk"
 *   **Why use it?** You can pull in calculated measures from a PowerBI model to use in your Python statistical models, ensuring you're using the "official" business logic.
 
 ```python
-import sempy.fabric as fabric
-# List all datasets in your workspace
-fabric.list_datasets()
+try:
+    import sempy.fabric as fabric
+    # List all datasets in your workspace
+    fabric.list_datasets()
+except ImportError:
+    print("sempy not installed, skipping Fabric Semantic Link example.")
 ```
 
 ## 6. Feature Walkthrough: Decision Matrix

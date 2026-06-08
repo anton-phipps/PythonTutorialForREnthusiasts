@@ -3,6 +3,20 @@
 ## Overview
 In R, `lubridate` makes working with dates intuitive. In Python, both **Pandas** and **Polars** provide powerful tools for time-series data.
 
+### Setup
+```python
+import pandas as pd
+import polars as pl
+import numpy as np
+
+data = {
+    'date_string': ['2023-01-01', '2023-02-15', '2023-03-20'],
+    'value': [10, 20, 30]
+}
+df = pd.DataFrame(data)
+df_pl = pl.DataFrame(data)
+```
+
 ---
 
 ## 1. Parsing Dates
@@ -19,7 +33,10 @@ df['date'] = pd.to_datetime(df['date_string'])
 **Polars:**
 ```python
 import polars as pl
-df = df.with_columns(pl.col('date_string').str.to_datetime("%Y-%m-%d"))
+# Convert to datetime and create a new 'date' column for subsequent examples
+df_pl = df_pl.with_columns(pl.col('date_string').str.to_datetime("%Y-%m-%d").alias('date'))
+# Ensure pandas also has the 'date' column
+df['date'] = pd.to_datetime(df['date_string'])
 ```
 
 ---
@@ -40,7 +57,7 @@ df['day_name'] = df['date'].dt.day_name()
 **Polars:**
 ```python
 # Use the .dt namespace
-df = df.with_columns([
+df_pl = df_pl.with_columns([
     pl.col('date').dt.year().alias('year'),
     pl.col('date').dt.month().alias('month'),
     pl.col('date').dt.strftime("%A").alias('day_name')
@@ -61,7 +78,7 @@ df['next_week'] = df['date'] + pd.Timedelta(days=7)
 
 **Polars:**
 ```python
-df = df.with_columns(
+df_pl = df_pl.with_columns(
     next_week = pl.col('date') + pl.duration(days=7)
 )
 ```
@@ -81,7 +98,7 @@ df['date_ny'] = df['date_utc'].dt.tz_convert('America/New_York')
 
 **Polars:**
 ```python
-df = df.with_columns(
+df_pl = df_pl.with_columns(
     pl.col('date').dt.replace_time_zone('UTC').dt.convert_time_zone('America/New_York')
 )
 ```

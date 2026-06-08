@@ -22,7 +22,7 @@ fig.show()
 If you want to keep using the same syntax you know and love, **Plotnine** is your best friend.
 
 ```python
-from plotnine import ggplot, aes, geom_point, geom_smooth, facet_wrap, theme_minimal
+from plotnine import ggplot, aes, geom_point, geom_smooth, facet_wrap, theme_minimal, labs
 from plotnine.data import mpg
 
 (ggplot(mpg, aes(x='displ', y='hwy', color='class'))
@@ -41,7 +41,9 @@ from plotnine.data import mpg
 ```python
 import seaborn as sns
 import matplotlib.pyplot as plt
-
+import matplotlib
+matplotlib.use('Agg')
+```
 # Set the style
 sns.set_theme(style="whitegrid")
 
@@ -58,7 +60,9 @@ Everything in Python visualization eventually leads back to **Matplotlib**. It i
 
 ```python
 import matplotlib.pyplot as plt
-
+import matplotlib
+matplotlib.use('Agg') # For headless environments
+```
 fig, ax = plt.subplots(figsize=(8, 4))
 ax.plot([1, 2, 3], [10, 20, 15], marker='o', linestyle='--', color='red')
 ax.set_title("Base Matplotlib Customization")

@@ -33,18 +33,21 @@ response = requests.get('https://api.github.com/search/repositories', params=par
 Many APIs require a key or token.
 
 ```python
+# Use httpbin.org for a working authentication example
 headers = {'Authorization': 'Bearer YOUR_TOKEN_HERE'}
-response = requests.get('https://api.example.com/protected', headers=headers)
+response = requests.get('https://httpbin.org/bearer', headers=headers)
+print(f"Status: {response.status_code}")
 ```
 
 ## 4. Turning API Data into a DataFrame
-Since `response.json()` returns a list of dictionaries, Pandas can handle it immediately.
+Since `pd.DataFrame()` often expects a list of dictionaries, we can wrap our result in a list if it's a single object.
 
 ```python
 import pandas as pd
 
+# If data is a single dictionary, wrap it in a list
 json_data = response.json()
-df = pd.DataFrame(json_data)
+df = pd.DataFrame([json_data])
 print(df.head())
 ```
 

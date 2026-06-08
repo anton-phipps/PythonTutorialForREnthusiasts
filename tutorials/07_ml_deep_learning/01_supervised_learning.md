@@ -3,6 +3,32 @@
 ## 1. Pipelines: The `tidymodels` Equivalent
 In R, `tidymodels` uses `recipes` and `workflows`. In Python, we use **Pipelines** to bundle preprocessing and modeling together. This prevents "data leakage" and makes your code cleaner.
 
+### Setup
+```python
+import pandas as pd
+import polars as pl
+import numpy as np
+from sklearn.model_selection import train_test_split
+
+# Sample data
+data = {
+    'hp': [110, 175, 245, 62, 95, 123, 180, 205, 60, 113],
+    'wt': [2.62, 3.21, 3.44, 2.14, 3.15, 2.77, 3.57, 3.85, 2.32, 3.01],
+    'qsec': [16.46, 17.02, 15.84, 18.61, 19.44, 17.02, 15.5, 15.41, 18.9, 17.4],
+    'mpg': [21, 21, 14, 22, 19, 18, 14, 13, 24, 18]
+}
+df = pd.DataFrame(data)
+df_pl = pl.DataFrame(data)
+
+X = df[['hp', 'wt', 'qsec']]
+y = df['mpg']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# For Polars examples
+X_train_pl = pl.from_pandas(X_train)
+y_train_pl = pl.from_pandas(y_train.to_frame())
+```
+
 ```python
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
@@ -62,8 +88,8 @@ X = df[['hp', 'wt', 'qsec']]
 model = LinearRegression().fit(X, y)
 
 # Print all coefficients
-for name, coef in zip(X.columns, model.coef_):
-    print(f"{name}: {coef:.4f}")
+for name, coef in zip(X.columns, model.coef_.flatten()):
+    print(f"{name}: {coef.item():.4f}")
 ```
 
 ### Python (Polars)
@@ -72,8 +98,8 @@ X = df_pl.select(['hp', 'wt', 'qsec'])
 model = LinearRegression().fit(X.to_numpy(), y.to_numpy())
 
 # Print all coefficients
-for name, coef in zip(X.columns, model.coef_):
-    print(f"{name}: {coef:.4f}")
+for name, coef in zip(X.columns, model.coef_.flatten()):
+    print(f"{name}: {coef.item():.4f}")
 ```
 
 ---
@@ -108,7 +134,7 @@ from sklearn.ensemble import RandomForestRegressor
 
 # sklearn works best with numpy arrays from Polars
 rf = RandomForestRegressor(n_estimators=100, random_state=42)
-rf.fit(X_train.to_numpy(), y_train.to_numpy())
+rf.fit(X_train_pl.to_numpy(), y_train_pl.to_numpy())
 
 # Feature Importance
 importances = rf.feature_importances_
@@ -132,7 +158,7 @@ from xgboost import XGBRegressor
 
 # XGBoost also accepts numpy arrays
 xgb = XGBRegressor(n_estimators=100, learning_rate=0.1)
-xgb.fit(X_train.to_numpy(), y_train.to_numpy())
+xgb.fit(X_train_pl.to_numpy(), y_train_pl.to_numpy())
 ```
 
 ---

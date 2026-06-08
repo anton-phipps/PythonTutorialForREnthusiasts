@@ -36,7 +36,7 @@ Magics are special commands that are not valid Python but are understood by the 
 *   `%pwd`: Print working directory.
 *   `%ls`: List files in the current directory.
 
-```python
+```ipython
 # Example of %timeit
 %timeit [x**2 for x in range(1000)]
 ```

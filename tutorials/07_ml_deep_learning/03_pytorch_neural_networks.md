@@ -62,12 +62,22 @@ Training involves 4 steps repeated over several "epochs":
 3.  **Backward Pass:** Compute gradients.
 4.  **Optimization:** Update weights to reduce loss.
 
+### Setup
 ```python
-# Pseudo-code for a training loop
+import torch
+import torch.nn as nn
+
+# Dummy data for the training loop example
+inputs = torch.randn(10, 4)
+labels = torch.randint(0, 3, (10,))
+```
+
+```python
+# Pseudo-code for a training loop (now executable!)
 optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
 criterion = nn.CrossEntropyLoss()
 
-for epoch in range(100):
+for epoch in range(10): # Reduced epochs for testing
     # 1. Forward
     outputs = model(inputs)
     loss = criterion(outputs, labels)

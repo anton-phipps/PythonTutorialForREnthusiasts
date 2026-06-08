@@ -8,6 +8,22 @@ Unsupervised Learning involves finding patterns in data without a "target" or "l
 ## 1. Clustering: Finding Hidden Groups
 Clustering aims to group similar observations together.
 
+### Setup
+```python
+import pandas as pd
+import polars as pl
+import numpy as np
+
+# Create sample data
+np.random.seed(42)
+X = np.random.randn(100, 4)
+X_df = pd.DataFrame(X, columns=['a', 'b', 'c', 'd'])
+X_pl = pl.DataFrame(X, schema=['a', 'b', 'c', 'd'])
+
+# We'll use X as a pandas DataFrame or numpy array depending on the example
+X = X_df
+```
+
 ### K-Means Clustering
 The most popular clustering algorithm. It partitions data into *K* clusters where each observation belongs to the cluster with the nearest mean.
 *   **R:** `kmeans(df, centers = 3)`
@@ -35,7 +51,7 @@ from sklearn.cluster import KMeans
 kmeans = KMeans(n_clusters=3, random_state=42)
 
 # 2. Fit and Predict using numpy array
-clusters = kmeans.fit_predict(X.to_numpy())
+clusters = kmeans.fit_predict(X_pl.to_numpy())
 
 # 3. Access cluster centers
 centers = kmeans.cluster_centers_
@@ -61,7 +77,7 @@ from sklearn.cluster import DBSCAN
 
 # Use numpy conversion for Polars
 db = DBSCAN(eps=0.5, min_samples=5)
-clusters = db.fit_predict(X.to_numpy())
+clusters = db.fit_predict(X_pl.to_numpy())
 
 # Note: Outliers are labeled as -1
 ```
@@ -97,7 +113,7 @@ from sklearn.preprocessing import StandardScaler
 
 # Scale data (Polars -> Numpy)
 scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X.to_numpy())
+X_scaled = scaler.fit_transform(X_pl.to_numpy())
 
 # Reduce to 2 components
 pca = PCA(n_components=2)
@@ -136,7 +152,7 @@ X_scaled = scaler.fit_transform(X)
 from sklearn.preprocessing import StandardScaler
 
 scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X.to_numpy())
+X_scaled = scaler.fit_transform(X_pl.to_numpy())
 ```
 
 ---
